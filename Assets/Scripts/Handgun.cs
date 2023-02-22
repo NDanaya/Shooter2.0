@@ -19,15 +19,26 @@ namespace DefaultNamespace
                 print(hit.transform.gameObject.name);
 
                 Instantiate(impactPrefab, hit.point, Quaternion.LookRotation(hit.normal, Vector3.up));
-                
+
+                var destructible = hit.transform.GetComponent<DestructibleObjects>();
+
+                if (destructible != null)
+                {
+                    destructible.ReceiveDamage();
+                }
+
                 var rigidbody = hit.transform.GetComponent<Rigidbody>();
-                if (rigidbody == null)
+                
+                if (rigidbody != null)
+                {
+                    rigidbody.AddForce(shootPoint.forward * force, ForceMode.Impulse);
+                }
+                
+                /*if (rigidbody == null)
                 {
                     //hit.transform.gameObject.SetActive(false); убирает галочку в юнити/объекты
                     return;
-                }
-
-                rigidbody.AddForce(shootPoint.forward * force, ForceMode.Impulse);
+                }*/
             }
             //print("Mouse clicked");
         }
