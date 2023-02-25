@@ -2,10 +2,11 @@
 
 namespace DefaultNamespace
 {
-    public class Handgun : MonoBehaviour
+    public class Weapon : MonoBehaviour
     {
         
     [SerializeField] private float force = 4;
+    [SerializeField] private float damage = 1;
     [SerializeField] private GameObject impactPrefab;
     [SerializeField] private Transform shootPoint;
 
@@ -24,7 +25,7 @@ namespace DefaultNamespace
 
                 if (destructible != null)
                 {
-                    destructible.ReceiveDamage();
+                    destructible.ReceiveDamage(damage);
                 }
 
                 var rigidbody = hit.transform.GetComponent<Rigidbody>();
