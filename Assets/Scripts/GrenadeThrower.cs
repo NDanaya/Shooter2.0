@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class GrenadeThrower : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
+    
+    [SerializeField] private float throwForce = 40f;
+    [SerializeField] private GameObject grenadePrefab;
+    
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetMouseButtonDown(0))
+        {
+            ThrowGrenade();
+        }
+    }
+
+    void ThrowGrenade()
+    {
+        GameObject grenade = Instantiate(grenadePrefab, transform.position, transform.rotation);
+        Rigidbody rb = grenade.GetComponent<Rigidbody>();
+        rb.AddForce(transform.forward * throwForce, ForceMode.VelocityChange);
     }
 }
